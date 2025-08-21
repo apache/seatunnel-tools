@@ -7,20 +7,6 @@ This repository hosts auxiliary tools for Apache SeaTunnel. It focuses on develo
 More tools may be added in the future. For the main data integration engine, see the
 [Apache SeaTunnel](https://github.com/apache/seatunnel) project.
 
-## Modules documentation
-
-- x2seatunnel
-	- English: [x2seatunnel/README.md](x2seatunnel/README.md)
-	- 中文: [x2seatunnel/README_zh.md](x2seatunnel/README_zh.md)
-
-## Build and Test
-
-Prerequisites:
-- Java 8+
-- Maven 3.6+
-
-Build the whole repository:
-
 ## Tool 1 - SeaTunnel MCP Server
 
 What is MCP?
@@ -37,28 +23,16 @@ SeaTunnel MCP Server
 
 For screenshots, demo video, features, installation and usage instructions, please refer to the README in the seatunnel-mcp directory.
 
-Get the main project from [Apache SeaTunnel](https://github.com/apache/seatunnel) 
-```bash
-mvn -T 1C -e -DskipIT clean verify
-```
+## Tool 2 - x2seatunnel
 
-Build only a submodule (x2seatunnel as example):
-
-```bash
-mvn -pl x2seatunnel -am -DskipTests clean package
-```
-
-Artifacts will be generated under `x2seatunnel/target/`:
-- Runnable JAR: `x2seatunnel-<version>.jar`
-- Distribution ZIP: `x2seatunnel-<version>-bin.zip` (or similar)
-
-Unzip the distribution and follow the submodule README to run.
-
-## Versioning and Dependencies
-
-This repository depends on released Seatunnel artifacts (e.g., `seatunnel-common`, `seatunnel-jackson`).
-Versions are centrally managed via the `seatunnel.version` property in the root POM.
+What is x2seatunnel?
+- x2seatunnel is a configuration conversion tool that helps users migrate from other data integration tools (e.g., DataX) to SeaTunnel by converting existing configurations into SeaTunnel-compatible formats.
+- x2seatunnel
+	- English: [x2seatunnel/README.md](x2seatunnel/README.md)
+	- Chinese: [x2seatunnel/README_zh.md](x2seatunnel/README_zh.md)
 
 ## Contributing
 
 Issues and PRs are welcome.
+
+Get the main project from [Apache SeaTunnel](https://github.com/apache/seatunnel) 
