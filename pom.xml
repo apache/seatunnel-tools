@@ -34,23 +34,28 @@
     <description>Production ready big data processing product based on Apache Spark and Apache Flink.</description>
 
     <modules>
-        <!--
-            We retrieve the config module from maven repository. If you want to change the config module,
-            you need to open this annotation and change the dependency of config-shade to project.
-            <module>seatunnel-config</module>
-        -->
-        <module>seatunnel</module>
+        <module>x2seatunnel</module>
     </modules>
 
     <properties>
-        <!--todo The classification is too confusing, reclassify by type-->
+        <!-- Project coordinates -->
         <revision>0.0.1-SNAPSHOT</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <scala.version>2.12.15</scala.version>
-        <scala.binary.version>2.12</scala.binary.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+
+        <!-- External dependency versions for submodules (x2seatunnel) -->
+        <!-- SeaTunnel released artifacts used by tools (adjust as needed or override with -Dseatunnel.version=...) -->
+        <seatunnel.version>2.3.11</seatunnel.version>
+        <slf4j.version>1.7.36</slf4j.version>
+        <log4j2.version>2.17.1</log4j2.version>
+        <junit4.version>4.13.2</junit4.version>
+        <junit5.version>5.9.0</junit5.version>
+        <mockito.version>4.11.0</mockito.version>
+        <snakeyaml.version>1.33</snakeyaml.version>
+        <commons.cli.version>1.4</commons.cli.version>
+        <jackson.version>2.16.1</jackson.version>
 
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
@@ -67,21 +72,19 @@
         <maven-license-maven-plugin>1.20</maven-license-maven-plugin>
         <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
         <maven-scm-provider-jgit.version>2.0.0</maven-scm-provider-jgit.version>
+        <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
         <spotless.version>2.29.0</spotless.version>
         <!-- Option args -->
         <skipUT>false</skipUT>
         <skipIT>true</skipIT>
         <skip.spotless>false</skip.spotless>
     </properties>
-
     <build>
-
-        <finalName>${project.artifactId}-${project.version}-${scala.version}</finalName>
+        <finalName>${project.artifactId}-${project.version}</finalName>
 
         <pluginManagement>
             <plugins>
 
-                <!-- java/scala compiler (Start) -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -154,8 +157,7 @@
                             <excludes>
                                 <exclude>org.slf4j:*</exclude>
                                 <exclude>ch.qos.logback:*</exclude>
-                                <exclude>log4j:*</exclude>
-                                <exclude>org.apache.logging.log4j:*</exclude>
+                                <exclude>log4j:log4j</exclude>
                                 <exclude>commons-logging:*</exclude>
                             </excludes>
                         </artifactSet>
@@ -463,9 +465,9 @@
     </mailingLists>
 
     <scm>
-        <connection>scm:git:https://github.com/apache/seatunnel.git</connection>
-        <developerConnection>scm:git:https://github.com/apache/seatunnel.git</developerConnection>
-        <url>https://github.com/apache/seatunnel</url>
+        <connection>scm:git:https://github.com/apache/seatunnel-tools.git</connection>
+        <developerConnection>scm:git:https://github.com/apache/seatunnel-tools.git</developerConnection>
+        <url>https://github.com/apache/seatunnel-tools</url>
         <tag>HEAD</tag>
     </scm>
 

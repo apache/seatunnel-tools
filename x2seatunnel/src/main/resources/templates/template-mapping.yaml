@@ -1,0 +1,108 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# X2SeaTunnel Template Mapping Configuration
+# Defines mapping relationships from DataX connector types to SeaTunnel template files
+# Created: July 9, 2025
+# Version: 1.0
+
+# DataX Connector Mapping Configuration
+datax:
+  # Environment configuration mapping
+  env_mappings:
+    # Only batch mode is currently supported and used
+    "batch": "datax/env/batch-env.conf"
+
+  # DataX Reader to Source template mapping
+  source_mappings:
+    # Database Readers - Unified JDBC template strategy
+    "mysqlreader": "datax/sources/jdbc-source.conf"
+    "postgresqlreader": "datax/sources/jdbc-source.conf"
+    "oraclereader": "datax/sources/jdbc-source.conf"
+    "sqlserverreader": "datax/sources/jdbc-source.conf"
+
+    # File Readers
+    "txtfilereader": "datax/sources/localfile-source.conf"
+    "hdfsreader": "datax/sources/hdfs-source.conf"
+
+  # DataX Writer to Sink template mapping
+  sink_mappings:
+    # Database Writers (unified JDBC template)
+    "mysqlwriter": "datax/sinks/jdbc-sink.conf"
+    "postgresqlwriter": "datax/sinks/jdbc-sink.conf"
+    "oraclewriter": "datax/sinks/jdbc-sink.conf"
+    "sqlserverwriter": "datax/sinks/jdbc-sink.conf"
+
+    # File Writers
+    "hdfswriter": "datax/sinks/hdfs-sink.conf"
+    
+  # Default template configuration
+  defaults:
+    source_template: "datax/sources/jdbc-source.conf"
+    sink_template: "datax/sinks/hdfs-sink.conf"
+    env_template: "datax/env/batch-env.conf"
+
+# Field mapping transformer configuration
+transformers:
+  # JDBC driver mapping (actively used in templates)
+  jdbc_driver_mapper:
+    "mysql": "com.mysql.cj.jdbc.Driver"
+    "postgresql": "org.postgresql.Driver"
+    "oracle": "oracle.jdbc.driver.OracleDriver"
+    "sqlserver": "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+    "clickhouse": "com.clickhouse.jdbc.ClickHouseDriver"
+    "db2": "com.ibm.db2.jcc.DB2Driver"
+    "sybase": "com.sybase.jdbc4.jdbc.SybDriver"
+    
+  # Compression format mapping (used in HDFS sink template)
+  compress_mapper:
+    "gzip": "gzip"
+    "bzip2": "bzip2"
+    "snappy": "snappy"
+    "lzo": "lzo"
+    "lz4": "lz4"
+    "zstd": "zstd"
+    
+  # DataX writeMode to SeaTunnel data_save_mode mapping (used in JDBC sink template)
+  writemode_to_datasavemode_mapper:
+    "insert": "APPEND_DATA"
+    "replace": "DROP_DATA"
+    "update": "UPSERT_DATA"
+    "append": "APPEND_DATA"
+    "overwrite": "DROP_DATA"
+
+# Template selection strategy configuration
+selection_strategy:
+  # Priority order: source_mappings + sink_mappings > defaults
+  priority_order:
+    - "source_mappings"
+    - "sink_mappings"
+    - "defaults"
+    
+  # Enable fallback to default templates
+  enable_fallback: true
+  
+  # Strict mode: report an error if no matching template is found
+  strict_mode: false
+
+# Configuration file version and compatibility
+metadata:
+  version: "1.1"
+  compatible_versions: ["1.0", "1.1"]
+  created_at: "2025-07-09"
+  updated_at: "2025-08-04"
+  description: "Optimized DataX to SeaTunnel template mapping configuration"
