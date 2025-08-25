@@ -34,6 +34,7 @@
     <description>Production ready big data processing product based on Apache Spark and Apache Flink.</description>
 
     <modules>
+        <module>seatunnel</module>
         <module>x2seatunnel</module>
     </modules>
 
@@ -47,7 +48,7 @@
 
         <!-- External dependency versions for submodules (x2seatunnel) -->
         <!-- SeaTunnel released artifacts used by tools (adjust as needed or override with -Dseatunnel.version=...) -->
-        <seatunnel.version>2.3.11</seatunnel.version>
+        <seatunnel.version>2.3.12-SNAPSHOT</seatunnel.version>
         <slf4j.version>1.7.36</slf4j.version>
         <log4j2.version>2.17.1</log4j2.version>
         <junit4.version>4.13.2</junit4.version>
